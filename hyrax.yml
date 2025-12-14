@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hyrax
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: hyrax
+  template:
+    metadata:
+      labels:
+        app: hyrax
+    spec:
+      containers:
+        - name: hyrax
+          image: opendap/hyrax:snapshot
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8080
+          # Optional: basic health checks (tweak path if needed)
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 8080
+            initialDelaySeconds: 20
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 8080
+            initialDelaySeconds: 60
+            periodSeconds: 20
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: hyrax
+spec:
+  selector:
+    app: hyrax
+  ports:
+    - name: http
+      port: 8080
+      targetPort: 8080
+  type: ClusterIP

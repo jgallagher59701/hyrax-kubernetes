@@ -15,7 +15,7 @@ _**Add GANTT chart**_ chat for more information. jhrg 12/13/25
 The **simplest** way on macOS is to use **Docker s built-in single-node Kubernetes** and deploy one pod with a 
 Service. s a dead-simple path you can run end-to-end in minutes.
 
-# 1) Prereqs (macOS)
+# 1) Prerequisites (macOS)
 
 * Install **Docker Desktop for Mac** and in [it] **Enable Kubernetes**.
 * Install kubectl (Docker Desktop bundles it; otherwise: `brew install kubectl`).
